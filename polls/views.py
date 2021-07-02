@@ -12,3 +12,15 @@ def get_students(request):
     student_serializer = StudentSerializer(student_list, many=True)
 
     return JsonResponse(student_serializer.data, safe=False, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def insert_student(request):
+    body = JSONParser().parse(request)
+    student_serializer = StudentSerializer(data=body)
+
+    if student_serializer.is_valid():
+        student_serializer.save()   
+        return JsonResponse(student_serializer.data, status=status.HTTP_200_OK)
+
+    return JsonResponse({'message': 'Error for insert student'}, status=status.HTTP_400_BAD_REQUEST)
+    
