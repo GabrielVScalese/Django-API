@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.http import HttpResponse
+from django.http.response import JsonResponse
 
 def index(request):
-    return HttpResponse('API is running!')
+    return JsonResponse({'message': 'API is running!'})
 
 urlpatterns = [
     path('', index), 
